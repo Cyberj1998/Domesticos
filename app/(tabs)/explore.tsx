@@ -71,10 +71,11 @@ export default function TabTwoScreen() {
     try {
       const supported = await Linking.canOpenURL(whatsappUrl);
 
-      if (supported) {
+      if (supported && address.length != 0) {
         await Linking.openURL(whatsappUrl);
+        clearCart();
       } else {
-        Alert.alert("Error", "No se pudo abrir WhatsApp en este dispositivo");
+        Alert.alert("Introdusca su direccion por favor");
       }
     } catch (error) {
       Alert.alert(
@@ -87,7 +88,6 @@ export default function TabTwoScreen() {
 
   const handleRequest = () => {
     handleShareToWhatsApp();
-    clearCart();
   };
 
   return (

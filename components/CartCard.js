@@ -15,7 +15,6 @@ export default function CartCard({ item }) {
       <View style={styles.infoContainer}>
         <Image source={{ uri: item.image }} style={styles.image} />
         <Text style={styles.name}>{item.name}</Text>
-        <Text>{item.$id}</Text>
       </View>
       <View style={styles.quantityContainer}>
         <TouchableOpacity onPress={() => decreaseQuantity(item.$id)}>

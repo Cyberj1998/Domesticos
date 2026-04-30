@@ -11,6 +11,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import MyLoader from "../../components/MyLoader";
 import ProductCard from "../../components/ProductCard";
 
 //------------------appwrite credentials
@@ -145,14 +146,20 @@ export default function HomeScreen() {
           </TouchableOpacity>
         ))}
       </ScrollView>
-      <FlatList
-        style={styles.flatList}
-        data={filteredProducts}
-        renderItem={renderProductItem}
-        keyExtractor={(item) => item.$id}
-        numColumns={2}
-        contentContainerStyle={styles.flatListContentContainer}
-      />
+      {productsDatabase.length === 0 ? (
+        <View style={styles.loadingContainer}>
+          <MyLoader size={100} speed={2000} color="#48d769" />
+        </View>
+      ) : (
+        <FlatList
+          style={styles.flatList}
+          data={filteredProducts}
+          renderItem={renderProductItem}
+          keyExtractor={(item) => item.$id}
+          numColumns={2}
+          contentContainerStyle={styles.flatListContentContainer}
+        />
+      )}
     </SafeAreaView>
   );
 }
@@ -224,5 +231,12 @@ const styles = StyleSheet.create({
   },
   categoryBar: {
     height: 70,
+    flexGrow: 0,
+  },
+  loadingContainer: {
+    flex: 1,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
