@@ -50,13 +50,15 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#48d769",
     borderTopWidth: 1,
+    borderRadius: 100,
     borderTopColor: "#eeeeee",
     height: 65,
     paddingBottom: 10,
     paddingTop: 10,
     elevation: 8,
+    margin: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: -3 },
     shadowOpacity: 0.1,
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
     color: "#333333",
   },
   icon: {
-    width: 28,
-    height: 28,
+    width: 30,
+    height: 30,
   },
 });

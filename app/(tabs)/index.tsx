@@ -36,6 +36,7 @@ export default function HomeScreen() {
     price: number;
     image: string;
     category: string;
+    local: string;
   }
 
   const renderProductItem: ListRenderItem<Product> = ({ item }) => (

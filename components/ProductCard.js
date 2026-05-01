@@ -10,6 +10,7 @@ import postre from "../assets/images/icons/dessert.png";
 import bebida from "../assets/images/icons/drink.png";
 import completa from "../assets/images/icons/food.png";
 import pizza from "../assets/images/icons/pizza.png";
+import Store from "../assets/images/icons/store.png";
 
 export default function ProductCard({ item }) {
   const addToCart = useCartStore((state) => state.addToCart);
@@ -45,6 +46,10 @@ export default function ProductCard({ item }) {
             }
           />
         </View>
+        <View style={styles.storeContainer}>
+          <Image source={Store} style={styles.storeIcon} />
+          <Text style={styles.storeText}>{item.local}</Text>
+        </View>
         <TouchableOpacity
           style={styles.addButton}
           onPress={() => handleAddToCart(item)}
@@ -65,7 +70,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     width: 160,
-    height: 300,
     flexShrink: false,
     shadowColor: "#000",
     shadowOffset: {
@@ -128,5 +132,21 @@ const styles = StyleSheet.create({
     color: "white",
     borderRadius: 12,
     backgroundColor: "#969696",
+  },
+  storeContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  storeIcon: {
+    height: 25,
+    width: 25,
+    resizeMode: "contain",
+  },
+  storeText: {
+    fontSize: 12,
+    fontWeight: 500,
+    marginLeft: 5,
   },
 });
