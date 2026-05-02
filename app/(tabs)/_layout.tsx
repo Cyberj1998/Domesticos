@@ -2,20 +2,29 @@ import { Image } from "expo-image";
 import { Tabs } from "expo-router";
 import React from "react";
 import { StyleSheet, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useColorScheme } from "@/hooks/use-color-scheme";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme() ?? "light";
+  const insets = useSafeAreaInsets();
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        // tabBarButton: HapticTab, // Uncomment if using your HapticTab
-        tabBarStyle: styles.tabBar,
+        tabBarStyle: [
+          styles.tabBar,
+          {
+            bottom: insets.bottom > 0 ? insets.bottom : 10,
+            left: 20,
+            right: 20,
+            height: 60,
+          },
+        ],
         tabBarLabelStyle: styles.tabBarLabel,
-        tabBarActiveTintColor: "#48d769",
+        tabBarActiveTintColor: "#4f9c61",
         tabBarInactiveTintColor: "#333333",
       }}
     >
@@ -74,8 +83,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#48d769",
     borderTopWidth: 0,
     borderRadius: 100,
-    height: 70,
-    margin: 15,
     paddingBottom: 10,
     paddingTop: 10,
     elevation: 8,
@@ -83,7 +90,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: -3 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    position: "absolute", // Recommended for floating tab bars
   },
   tabBarLabel: {
     fontSize: 12,
@@ -95,7 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: -5, // Adjust to align with label
+    marginBottom: -5,
   },
   icon: {
     width: 24,
