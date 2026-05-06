@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Domicilio",
-    "slug": "Domicilio",
+    "name": "Pizza Domicilio",
+    "slug": "Pizza Domicilio",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
