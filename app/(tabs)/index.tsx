@@ -17,8 +17,9 @@ import ProductCard from "../../components/ProductCard";
 //------------------appwrite credentials
 import { Client, TablesDB } from "react-native-appwrite";
 const APPWRITE_PROJECT_NAME = "delivery";
-const PROJECT_ID = "69eb7dce000baa1aca45";
-const ENDPOINT = "https://nyc.cloud.appwrite.io/v1";
+const PROJECT_ID = process.env.EXPO_PUBLIC_PROJECT_ID!;
+const ENDPOINT = process.env.EXPO_PUBLIC_ENDPOINT!;
+const DATABASE_ID = process.env.EXPO_PUBLIC_DATABASE_ID!;
 
 //-----------------images imports
 import burger from "../../assets/images/icons/burger.png";
@@ -84,7 +85,7 @@ export default function HomeScreen() {
   const tablesDB = new TablesDB(client);
 
   const handleCallRows = () => {
-    let promise = tablesDB.listRows("69eb7f47001393ab2d33", "products");
+    let promise = tablesDB.listRows(DATABASE_ID, "products");
 
     promise.then(
       function (response) {
