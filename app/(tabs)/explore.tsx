@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   checkoutButton: {
-    backgroundColor: "#48d769",
+    backgroundColor: "#d69be6",
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 20,

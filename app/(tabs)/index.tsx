@@ -157,7 +157,7 @@ export default function HomeScreen() {
       </ScrollView>
       {productsDatabase.length === 0 ? (
         <View style={styles.loadingContainer}>
-          <MyLoader size={100} speed={2000} color="#48d769" />
+          <MyLoader size={100} speed={2000} color="#b85bd7" />
         </View>
       ) : (
         <FlatList
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     width: 55,
   },
   categoryButton: {
-    backgroundColor: "#48d769",
+    backgroundColor: "#ca7ae5",
     borderRadius: 20,
     padding: 10,
     margin: 10,

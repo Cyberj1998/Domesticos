@@ -35,7 +35,7 @@ export default function TabLayout() {
         ],
         tabBarLabelStyle: styles.tabBarLabel,
         tabBarActiveTintColor: "#4f9c61",
-        tabBarInactiveTintColor: "#333333",
+        tabBarInactiveTintColor: "#ffff",
       }}
     >
       <Tabs.Screen
@@ -52,7 +52,7 @@ export default function TabLayout() {
               <Image
                 style={[
                   styles.icon,
-                  { tintColor: focused ? "#48d769" : "#333333" },
+                  { tintColor: focused ? "#b179ea" : "#ffff" },
                 ]}
                 source={require("../../assets/images/store.png")}
                 contentFit="cover"
@@ -77,7 +77,7 @@ export default function TabLayout() {
               <Image
                 style={[
                   styles.icon,
-                  { tintColor: focused ? "#48d769" : "#333333" },
+                  { tintColor: focused ? "#b179ea" : "#ffff" },
                 ]}
                 source={require("../../assets/images/cart.png")}
                 contentFit="cover"
@@ -93,7 +93,7 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: "#48d769",
+    backgroundColor: "#a47caf",
     borderTopWidth: 0,
     borderRadius: 100,
     paddingBottom: 10,
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 10,
     fontWeight: 500,
+    color: "#fff",
   },
   totalQuantity: {
     position: "absolute",
