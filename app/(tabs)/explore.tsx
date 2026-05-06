@@ -152,7 +152,7 @@ export default function TabTwoScreen() {
               style={styles.checkoutButton}
               onPress={() => handleModal()}
             >
-              <Text style={styles.checkoutText}>Checkout</Text>
+              <Text style={styles.checkoutText}>Direccion</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -187,6 +187,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
+    marginBottom: 10,
   },
   paymentContainer: {
     backgroundColor: "#eeeeee",

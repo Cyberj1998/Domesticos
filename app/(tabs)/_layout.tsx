@@ -86,6 +86,8 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingTop: 10,
     elevation: 8,
+    marginLeft: 10,
+    marginRight: 10,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: -3 },
     shadowOpacity: 0.1,

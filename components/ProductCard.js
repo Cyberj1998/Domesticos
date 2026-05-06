@@ -5,6 +5,7 @@ import useCartStore from "../store/CartSlice";
 
 //-----------------icons
 
+import CartIcon from "../assets/images/cart.png";
 import burger from "../assets/images/icons/burger.png";
 import postre from "../assets/images/icons/dessert.png";
 import bebida from "../assets/images/icons/drink.png";
@@ -54,7 +55,8 @@ export default function ProductCard({ item }) {
           style={styles.addButton}
           onPress={() => handleAddToCart(item)}
         >
-          <Text style={styles.addButtonText}>Add to Cart</Text>
+          <Text style={styles.addButtonText}>Añadir al carrito</Text>
+          <Image source={CartIcon} style={styles.cartIcon} />
         </TouchableOpacity>
       </View>
     </View>
@@ -110,10 +112,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     alignSelf: "center",
     width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   addButtonText: {
     color: "#ffffff",
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "bold",
     textAlign: "center",
   },
@@ -148,5 +154,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 500,
     marginLeft: 5,
+  },
+  cartIcon: {
+    height: 20,
+    width: 20,
   },
 });

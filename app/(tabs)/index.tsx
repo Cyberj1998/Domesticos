@@ -124,7 +124,7 @@ export default function HomeScreen() {
       <View style={styles.searchBar}>
         <TextInput
           style={styles.searchInput}
-          placeholder="Introdusca su direccion..."
+          placeholder="buscar..."
           placeholderTextColor="#999"
           multiline={true}
           textAlignVertical="top"
@@ -139,11 +139,18 @@ export default function HomeScreen() {
         {categories.map((category, index) => (
           <TouchableOpacity
             key={index}
-            style={styles.categoryButton}
+            style={[
+              styles.categoryButton,
+              category.category === "todo" && { width: 80 },
+            ]}
             onPress={() => handleCategory(category)}
           >
             <Text style={styles.categoryText}>{category.category}</Text>
-            <Image style={styles.categoryIcon} source={category.image} />
+            {category.image ? (
+              <Image style={styles.categoryIcon} source={category.image} />
+            ) : (
+              ""
+            )}
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -175,6 +182,7 @@ const styles = StyleSheet.create({
   flatList: {
     width: "100%",
     flexWrap: "wrap",
+    marginBottom: 15,
   },
   flatListContentContainer: {
     paddingHorizontal: 8,
@@ -196,7 +204,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     margin: 10,
-    width: 100,
     height: 40,
     display: "flex",
     flexDirection: "row",
