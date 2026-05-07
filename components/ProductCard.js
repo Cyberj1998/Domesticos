@@ -7,11 +7,11 @@ import useCartStore from "../store/CartSlice";
 //-----------------icons
 
 import CartIcon from "../assets/images/cart.png";
-import burger from "../assets/images/icons/burger.png";
-import postre from "../assets/images/icons/dessert.png";
-import bebida from "../assets/images/icons/drink.png";
-import completa from "../assets/images/icons/food.png";
-import pizza from "../assets/images/icons/pizza.png";
+import climatizacionIcon from "../assets/images/icons/climatizacion.png";
+import cocinaIcon from "../assets/images/icons/cocina.png";
+import energiaSolar from "../assets/images/icons/energia solar.png";
+import entretenimientoIcon from "../assets/images/icons/entretenimiento.png";
+import hogarIcon from "../assets/images/icons/hogar.png";
 import Store from "../assets/images/icons/store.png";
 
 let soundObject = null;
@@ -52,16 +52,16 @@ export default function ProductCard({ item }) {
           <Image
             style={styles.categoryIcon}
             source={
-              item.category === "pizza"
-                ? pizza
-                : item.category === "completa"
-                  ? completa
-                  : item.category === "postre"
-                    ? postre
-                    : item.category === "burger"
-                      ? burger
-                      : item.category === "bebida"
-                        ? bebida
+              item.category === "cocina"
+                ? cocinaIcon
+                : item.category === "climatizacion"
+                  ? climatizacionIcon
+                  : item.category === "hogar"
+                    ? hogarIcon
+                    : item.category === "audio & video"
+                      ? entretenimientoIcon
+                      : item.category === "Energia solar"
+                        ? energiaSolar
                         : ""
             }
           />

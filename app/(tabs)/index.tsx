@@ -22,12 +22,12 @@ const ENDPOINT = process.env.EXPO_PUBLIC_ENDPOINT!;
 const DATABASE_ID = process.env.EXPO_PUBLIC_DATABASE_ID!;
 
 //-----------------images imports
-import burger from "../../assets/images/icons/burger.png";
-import dessert from "../../assets/images/icons/dessert.png";
-import drinkIcon from "../../assets/images/icons/drink.png";
-import food from "../../assets/images/icons/food.png";
+import climatizacionIcon from "../../assets/images/icons/climatizacion.png";
+import cocinaIcon from "../../assets/images/icons/cocina.png";
+import energiaSolar from "../../assets/images/icons/energia solar.png";
+import entretenimientoIcon from "../../assets/images/icons/entretenimiento.png";
+import hogarIcon from "../../assets/images/icons/hogar.png";
 import Logo from "../../assets/images/icons/logo-2.png";
-import pizza from "../../assets/images/icons/pizza.png";
 import SearchIcon from "../../assets/images/icons/search.png";
 
 export default function HomeScreen() {
@@ -55,24 +55,24 @@ export default function HomeScreen() {
       image: "",
     },
     {
-      category: "pizza",
-      image: pizza,
+      category: "cocina",
+      image: cocinaIcon,
     },
     {
-      category: "burger",
-      image: burger,
+      category: "climatizacion",
+      image: climatizacionIcon,
     },
     {
-      category: "bebida",
-      image: drinkIcon,
+      category: "hogar",
+      image: hogarIcon,
     },
     {
-      category: "postre",
-      image: dessert,
+      category: "audio & video",
+      image: entretenimientoIcon,
     },
     {
-      category: "completa",
-      image: food,
+      category: "energia solar",
+      image: energiaSolar,
     },
   ];
 
@@ -85,7 +85,7 @@ export default function HomeScreen() {
   const tablesDB = new TablesDB(client);
 
   const handleCallRows = () => {
-    let promise = tablesDB.listRows(DATABASE_ID, "products");
+    let promise = tablesDB.listRows(DATABASE_ID, "domesticos");
 
     promise.then(
       function (response) {
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     width: 55,
   },
   categoryButton: {
-    backgroundColor: "#ca7ae5",
+    backgroundColor: "#cb85e3cb",
     borderRadius: 20,
     padding: 10,
     margin: 10,
