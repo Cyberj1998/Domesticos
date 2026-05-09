@@ -13,20 +13,16 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import MyLoader from "../../components/MyLoader";
 import ProductCard from "../../components/ProductCard";
+import categories from "../../constants/categories";
 
 //------------------appwrite credentials
-import { Client, TablesDB } from "react-native-appwrite";
+import { Client, Query, TablesDB } from "react-native-appwrite";
 const APPWRITE_PROJECT_NAME = "delivery";
 const PROJECT_ID = process.env.EXPO_PUBLIC_PROJECT_ID!;
 const ENDPOINT = process.env.EXPO_PUBLIC_ENDPOINT!;
 const DATABASE_ID = process.env.EXPO_PUBLIC_DATABASE_ID!;
 
 //-----------------images imports
-import climatizacionIcon from "../../assets/images/icons/climatizacion.png";
-import cocinaIcon from "../../assets/images/icons/cocina.png";
-import energiaSolar from "../../assets/images/icons/energia solar.png";
-import entretenimientoIcon from "../../assets/images/icons/entretenimiento.png";
-import hogarIcon from "../../assets/images/icons/hogar.png";
 import Logo from "../../assets/images/icons/logo-2.png";
 import SearchIcon from "../../assets/images/icons/search.png";
 
@@ -49,57 +45,46 @@ export default function HomeScreen() {
     image: any;
   }
 
-  const categories = [
-    {
-      category: "todo",
-      image: "",
-    },
-    {
-      category: "cocina",
-      image: cocinaIcon,
-    },
-    {
-      category: "climatizacion",
-      image: climatizacionIcon,
-    },
-    {
-      category: "hogar",
-      image: hogarIcon,
-    },
-    {
-      category: "audio & video",
-      image: entretenimientoIcon,
-    },
-    {
-      category: "energia solar",
-      image: energiaSolar,
-    },
-  ];
-
   const [category, setCategory] = useState("todo");
   const [searchValue, setSearchValue] = useState("");
   const [productsDatabase, setProductsDatabase] = useState<Product[]>([]);
+  //-------------------lazy load states
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [offset, setOffset] = useState(0);
+  const LIMIT: number = 10;
 
   const client = new Client().setEndpoint(ENDPOINT).setProject(PROJECT_ID);
 
   const tablesDB = new TablesDB(client);
 
-  const handleCallRows = () => {
-    let promise = tablesDB.listRows(DATABASE_ID, "domesticos");
+  const handleCallRows = async (limit: number, currentOffset: number) => {
+    if (loading || !hasMore) return;
 
-    promise.then(
-      function (response) {
-        setProductsDatabase(response.rows as unknown as Product[]);
-        console.log(productsDatabase);
-      },
-      function (error) {
-        console.log(error);
-      },
-    );
+    setLoading(true);
+    try {
+      const response = await tablesDB.listRows(DATABASE_ID, "domesticos", [
+        Query.limit(limit),
+        Query.offset(currentOffset),
+      ]);
+
+      const newRows = response.rows as unknown as Product[];
+
+      if (newRows.length < LIMIT) {
+        setHasMore(false); // No more data left in DB
+      }
+
+      setProductsDatabase((prev) => [...prev, ...newRows]);
+      setOffset((prev) => prev + limit);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    handleCallRows();
+    handleCallRows(LIMIT, offset);
   }, []);
 
   const filteredProducts = useMemo(() => {
@@ -167,6 +152,11 @@ export default function HomeScreen() {
           keyExtractor={(item) => item.$id}
           numColumns={2}
           contentContainerStyle={styles.flatListContentContainer}
+          onEndReached={() => handleCallRows(LIMIT, offset)}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={
+            loading ? <Text style={styles.loadingText}>Cargando...</Text> : null
+          }
         />
       )}
     </SafeAreaView>
@@ -248,4 +238,30 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  loadingText: {
+    fontSize: 15,
+    fontWeight: 500,
+    color: "#cb85e3cb",
+  },
 });
+
+/*
+const handleCallRows = (limit: number, offset: number) => {
+    let promise = tablesDB.listRows(DATABASE_ID, "domesticos", [
+      Query.limit(limit),
+      Query.offset(offset),
+    ]);
+
+    promise.then(
+      function (response) {
+        setProductsDatabase(response.rows as unknown as Product[]);
+        console.log(productsDatabase);
+      },
+      function (error) {
+        console.log(error);
+      },
+    );
+  };
+
+
+*/

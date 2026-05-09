@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Electrodomesticos",
-    "slug": "Electrodomesticos",
+    "name": "CyberTienda",
+    "slug": "CyberTienda",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
