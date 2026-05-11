@@ -1,3 +1,4 @@
+import useCartStore from "@/store/CartSlice";
 import { useEffect, useMemo, useState } from "react";
 import {
   FlatList,
@@ -45,6 +46,10 @@ export default function HomeScreen() {
     image: any;
   }
 
+  //--------------add to cache
+  const addToCache = useCartStore((state) => state.addToCache);
+  const databaseCache = useCartStore((state) => state.databaseCache);
+
   const [category, setCategory] = useState("todo");
   const [searchValue, setSearchValue] = useState("");
   const [productsDatabase, setProductsDatabase] = useState<Product[]>([]);
@@ -74,12 +79,30 @@ export default function HomeScreen() {
         setHasMore(false); // No more data left in DB
       }
 
-      setProductsDatabase((prev) => [...prev, ...newRows]);
+      newRows.forEach((product) => {
+        addToCache(product);
+      });
       setOffset((prev) => prev + limit);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleCallByCategory = async (selectedCategory: string) => {
+    try {
+      const response = await tablesDB.listRows(DATABASE_ID, "domesticos", [
+        Query.equal("category", selectedCategory), // Use the argument here
+      ]);
+
+      const newRows = response.rows as unknown as Product[];
+      newRows.forEach((product) => {
+        addToCache(product);
+        console.log(product);
+      });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -90,16 +113,17 @@ export default function HomeScreen() {
   const filteredProducts = useMemo(() => {
     const categoryFiltered =
       category === "todo"
-        ? productsDatabase
-        : productsDatabase.filter((item) => item.category === category);
+        ? databaseCache
+        : databaseCache.filter((item: any) => item.category === category);
 
-    return categoryFiltered.filter((item) =>
+    return categoryFiltered.filter((item: any) =>
       item.name.toLowerCase().includes(searchValue.toLowerCase()),
     );
-  }, [category, searchValue, productsDatabase]);
+  }, [category, searchValue, databaseCache]);
 
-  const handleCategory = (category: CategoryItem) => {
+  const handleCategory = async (category: CategoryItem) => {
     setCategory(category.category);
+    await handleCallByCategory(category.category);
   };
 
   return (
@@ -140,7 +164,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
         ))}
       </ScrollView>
-      {productsDatabase.length === 0 ? (
+      {databaseCache.length === 0 ? (
         <View style={styles.loadingContainer}>
           <MyLoader size={100} speed={2000} color="#b85bd7" />
         </View>
