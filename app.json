@@ -20,7 +20,8 @@
         "monochromeImage": "./assets/images/android-icon-foreground.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.cyberjotaapps98.CyberTienda"
     },
     "web": {
       "output": "static",
@@ -44,6 +45,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "3038feab-2083-4c37-8b8a-5df12775155a"
+      }
+    },
+    "owner": "cyberjotaapps98"
   }
 }
